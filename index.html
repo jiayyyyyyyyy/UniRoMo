@@ -3,516 +3,431 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta name="title" content="UniRoMo: Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization - Yue Jiang, Yunqiu Xu, Wenchao Meng, Qinmin Yang, Jiming Chen">
-  <meta name="description" content="UniRoMo is a unified consensus-innovation optimization framework for robust multimodal learning under missing, noisy, and hybrid modality degradations.">
-  <meta name="keywords" content="robust multimodal learning, consensus-innovation optimization, multimodal optimization, missing modalities, noisy modalities, joint learning, alternating learning, MLLM">
+  <meta name="description" content="UniRoMo is a consensus-innovation optimization framework for robust multimodal learning under missing, noisy, and hybrid modality degradations.">
+  <meta name="keywords" content="robust multimodal learning, missing modalities, noisy modalities, consensus-innovation optimization">
   <meta name="author" content="Yue Jiang, Yunqiu Xu, Wenchao Meng, Qinmin Yang, Jiming Chen">
-  <meta name="robots" content="index, follow">
-  <meta name="language" content="English">
 
   <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Zhejiang University">
   <meta property="og:title" content="UniRoMo: Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization">
-  <meta property="og:description" content="UniRoMo is a unified consensus-innovation optimization framework for robust multimodal learning under missing, noisy, and hybrid modality degradations.">
-  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
+  <meta property="og:description" content="Directly learning robust multimodal representations from missing, noisy, and hybrid inputs.">
+  <meta property="og:url" content="https://jiayyyyyyyyy.github.io/UniRoMo/">
+  <meta property="og:image" content="https://jiayyyyyyyyy.github.io/UniRoMo/static/images/paper/motivation.png">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="UniRoMo: Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization">
-  <meta name="twitter:description" content="UniRoMo is a unified consensus-innovation optimization framework for robust multimodal learning under missing, noisy, and hybrid modality degradations.">
+  <title>UniRoMo | Robust Multimodal Learning</title>
 
-  <meta name="citation_title" content="UniRoMo: Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization">
-  <meta name="citation_author" content="Jiang, Yue">
-  <meta name="citation_author" content="Xu, Yunqiu">
-  <meta name="citation_author" content="Meng, Wenchao">
-  <meta name="citation_author" content="Yang, Qinmin">
-  <meta name="citation_author" content="Chen, Jiming">
-  <meta name="citation_publication_date" content="2026">
-
-  <meta name="theme-color" content="#2563eb">
-  <meta name="msapplication-TileColor" content="#2563eb">
-
-  <title>UniRoMo: Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization - Yue Jiang et al. | Academic Research</title>
-
-
-  <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="icon" href="static/images/favicon.ico">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    .resource-section {
-      padding: 4.5rem 1.5rem;
-    }
-
-    .resource-section.is-muted {
-      background: #f8fafc;
-      border-top: 1px solid #e2e8f0;
-      border-bottom: 1px solid #e2e8f0;
-    }
-
-    .resource-heading {
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-
-    .resource-heading .title {
-      margin-bottom: 0.65rem !important;
-    }
-
-    .resource-heading p {
-      margin: 0 auto;
-      max-width: 42rem;
-      color: #64748b;
-    }
-
-    .demo-video {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #0f172a;
-      border: 1px solid #dbe3ed;
-      border-radius: 8px;
-      box-shadow: 0 12px 30px rgb(15 23 42 / 0.12);
-      object-fit: contain;
-    }
-
-    .code-panel {
-      overflow: hidden;
-      border: 1px solid #263244;
-      border-radius: 8px;
-      background: #0f172a;
-      box-shadow: 0 10px 24px rgb(15 23 42 / 0.1);
-    }
-
-    .code-panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 3.25rem;
-      padding: 0.65rem 0.85rem 0.65rem 1.15rem;
-      border-bottom: 1px solid #263244;
-      color: #cbd5e1;
-      font-size: 0.875rem;
-      font-weight: 600;
-    }
-
-    .copy-code-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      min-height: 2.25rem;
-      padding: 0.45rem 0.75rem;
-      border: 1px solid #475569;
-      border-radius: 6px;
-      background: transparent;
-      color: #f8fafc;
-      cursor: pointer;
-      font: inherit;
-    }
-
-    .copy-code-btn:hover {
-      border-color: #94a3b8;
-      background: #1e293b;
-    }
-
-    #inference-code {
-      margin: 0;
-      border: 0 !important;
-      border-radius: 0 !important;
-      background: #0f172a !important;
-      box-shadow: none;
-      padding: 1.5rem !important;
-    }
-
-    #inference-code code {
-      background: transparent !important;
-      color: #e2e8f0 !important;
-      font-size: 0.9rem;
-      line-height: 1.75;
-    }
-
-    .checkpoint-list {
-      border-top: 1px solid #dbe3ed;
-    }
-
-    .checkpoint-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      min-height: 5.5rem;
-      padding: 1.15rem 0;
-      border-bottom: 1px solid #dbe3ed;
-    }
-
-    .checkpoint-name {
-      margin: 0 0 0.25rem;
-      color: #172033;
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
-
-    .checkpoint-meta {
-      margin: 0;
-      color: #64748b;
-      font-size: 0.9rem;
-    }
-
-    .checkpoint-download {
-      display: inline-flex;
-      flex: 0 0 auto;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      min-height: 2.75rem;
-      padding: 0.65rem 1rem;
-      border-radius: 6px;
-      background: #172033;
-      color: #fff;
-      font-weight: 700;
-      text-decoration: none;
-      transition: background-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .checkpoint-download:hover {
-      background: #0f766e;
-      color: #fff;
-      transform: translateY(-1px);
-    }
-
-    @media screen and (max-width: 640px) {
-      .resource-section {
-        padding: 3.25rem 1.25rem;
-      }
-
-      .checkpoint-item {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.85rem;
-      }
-
-      .checkpoint-download {
-        width: 100%;
-      }
-    }
-  </style>
-
+  <link rel="stylesheet" href="static/css/index.css">
   <script defer src="static/js/fontawesome.all.min.js"></script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ScholarlyArticle",
-    "headline": "UniRoMo: Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization",
-    "description": "UniRoMo is a unified consensus-innovation optimization framework for robust multimodal learning under missing, noisy, and hybrid modality degradations.",
-    "author": [
-      {
-        "@type": "Person",
-        "name": "Yue Jiang",
-        "url": "https://github.com/jiayyyyyyyyy",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "Zhejiang University"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": " Yunqiu Xu",
-    "url": "https://scholar.google.co.jp/citations?hl=zh-CN&user=SdJX4nAAAAAJ&view_op=list_works&sortby=pubdate",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "National University of Singapore"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "Wenchao Meng",
-        "url": "https://scholar.google.co.jp/citations?hl=zh-CN&user=OiQ2UisAAAAJ&view_op=list_works&sortby=pubdate",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "Zhejiang University"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "Qinmin Yang",
-        "url": "https://scholar.google.co.jp/citations?user=E2N96zcAAAAJ&hl=zh-CN&oi=ao",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "Zhejiang University"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "Jiming Chen",
-        "url": "https://scholar.google.co.jp/citations?user=zK9tvo8AAAAJ&hl=zh-CN&oi=ao",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "Zhejiang University"
-        }
-      }
-    ],
-    "datePublished": "2026",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Zhejiang University"
-    },
-    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
-    "keywords": [
-      "robust multimodal learning",
-      "consensus-innovation optimization",
-      "multimodal optimization",
-      "missing modalities",
-      "noisy modalities",
-      "joint learning",
-      "alternating learning",
-      "MLLM"
-    ],
-    "isAccessibleForFree": true
-  }
-  </script>
 </head>
 
 <body>
-  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
-    <i class="fas fa-chevron-up"></i>
-  </button>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <main id="main-content">
-    <section class="hero">
-      <div class="hero-body">
-        <div class="container is-max-desktop">
-          <div class="columns is-centered">
-            <div class="column has-text-centered">
-              <h1 class="title is-1 publication-title">
-                UniRoMo: Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization
-              </h1>
+    <header class="project-header">
+      <div class="page-shell header-shell">
+        <p class="project-mark">UniRoMo</p>
+        <h1>Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization</h1>
 
-              <div class="is-size-5 publication-authors">
-  <span class="author-block">
-    <a href="https://github.com/jiayyyyyyyyy" target="_blank" rel="noopener noreferrer">Yue Jiang</a><sup>1</sup>,
-  </span>
-  <span class="author-block">
-    <a href="https://scholar.google.co.jp/citations?hl=zh-CN&user=SdJX4nAAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener noreferrer">Yunqiu Xu</a><sup>2</sup>,
-  </span>
-  <span class="author-block">
-    <a href="https://scholar.google.co.jp/citations?hl=zh-CN&amp;user=OiQ2UisAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener noreferrer">Wenchao Meng</a><sup>1</sup>,
-  </span>
-  <span class="author-block">
-    <a href="https://scholar.google.co.jp/citations?user=E2N96zcAAAAJ&amp;hl=zh-CN&amp;oi=ao" target="_blank" rel="noopener noreferrer">Qinmin Yang</a><sup>1</sup>,
-  </span>
-  <span class="author-block">
-    <a href="https://scholar.google.co.jp/citations?user=zK9tvo8AAAAJ&amp;hl=zh-CN&amp;oi=ao" target="_blank" rel="noopener noreferrer">Jiming Chen</a><sup>1</sup>
-  </span>
-</div>
+        <div class="authors" aria-label="Authors">
+          <a href="https://github.com/jiayyyyyyyyy" target="_blank" rel="noopener noreferrer">Yue Jiang</a><sup>1</sup>,
+          <a href="https://scholar.google.co.jp/citations?hl=zh-CN&amp;user=SdJX4nAAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener noreferrer">Yunqiu Xu</a><sup>2</sup>,
+          <a href="https://scholar.google.co.jp/citations?hl=zh-CN&amp;user=OiQ2UisAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener noreferrer">Wenchao Meng</a><sup>1</sup>,
+          <a href="https://scholar.google.co.jp/citations?user=E2N96zcAAAAJ&amp;hl=zh-CN&amp;oi=ao" target="_blank" rel="noopener noreferrer">Qinmin Yang</a><sup>1</sup>,
+          <a href="https://scholar.google.co.jp/citations?user=zK9tvo8AAAAJ&amp;hl=zh-CN&amp;oi=ao" target="_blank" rel="noopener noreferrer">Jiming Chen</a><sup>1</sup>
+        </div>
 
-<div class="is-size-5 publication-authors">
-  <span class="author-block">
-    <sup>1</sup>Zhejiang University&nbsp;&nbsp;
-    <sup>2</sup>National University of Singapore
-    <br>Submitted
-  </span>
-</div>
+        <p class="affiliations">
+          <span><sup>1</sup>Zhejiang University</span>
+          <span><sup>2</sup>National University of Singapore</span>
+        </p>
+        <p class="submission-status">Submitted</p>
 
-              <div class="column has-text-centered">
-                <div class="publication-links">
-                  <span class="link-block">
-                    <button class="external-link button is-normal is-rounded is-dark" disabled>
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Paper Coming Soon</span>
-                    </button>
-                  </span>
+        <nav class="resource-links" aria-label="Project resources">
+          <span class="resource-button is-disabled" aria-disabled="true" title="Paper coming soon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            Paper
+          </span>
+          <a class="resource-button" href="https://github.com/jiayyyyyyyyy/UniRoMo/blob/main/inference.py" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github" aria-hidden="true"></i>
+            Inference Code
+          </a>
+          <a class="resource-button" href="#checkpoints">
+            <i class="fas fa-download" aria-hidden="true"></i>
+            Checkpoints
+          </a>
+        </nav>
 
-                  <span class="link-block">
-                    <button class="external-link button is-normal is-rounded is-dark" disabled>
-                      <span class="icon">
-                        <i class="ai ai-arxiv"></i>
-                      </span>
-                      <span>arXiv Coming Soon</span>
-                    </button>
-                  </span>
+        <p class="training-release">
+          <i class="fas fa-lock" aria-hidden="true"></i>
+          The training code will be released upon acceptance of the paper.
+        </p>
+      </div>
+    </header>
 
-                  <span class="link-block">
-                    <button class="external-link button is-normal is-rounded is-dark" disabled>
-                      <span class="icon">
-                        <i class="fab fa-github"></i>
-                      </span>
-                      <span>Code Coming Soon</span>
-                    </button>
-                  </span>
+    <section class="teaser-section" aria-labelledby="teaser-title">
+      <div class="page-shell">
+        <h2 class="visually-hidden" id="teaser-title">UniRoMo overview</h2>
+        <figure class="paper-figure figure-wide">
+          <a href="static/pdfs/figures/motivation.pdf" target="_blank" title="Open the motivation figure as PDF">
+            <picture>
+              <source srcset="static/images/paper/motivation.svg" type="image/svg+xml">
+              <img src="static/images/paper/motivation.png" alt="Comparison of prior repair and compensation methods with the UniRoMo optimization framework">
+            </picture>
+          </a>
+          <figcaption>
+            <strong>Robust learning without clean or complete references.</strong>
+            UniRoMo addresses missing, noisy, and hybrid modalities directly at the optimization level.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
 
-                </div>
-              </div>
-            </div>
+    <section class="paper-section" id="abstract">
+      <div class="page-shell reading-width">
+        <div class="section-heading">
+          <p class="section-index">01</p>
+          <h2>Abstract</h2>
+        </div>
+        <p class="abstract-copy">
+          Multimodal learning integrates complementary information from heterogeneous modalities, yet real-world multimodal data are often incomplete or corrupted by noise, substantially impairing the effectiveness and reliability of multimodal models. Early approaches typically address a single degradation type at a time, whereas real-world multimodal data may involve multiple coexisting degradations whose patterns are unknown a priori. A few recent efforts have begun to explore unified robust multimodal learning to jointly handle multiple degradation types, but they rely on clean or modality-complete references and auxiliary repair modules, hindering their broader applicability. To address these limitations, we rethink unified robust multimodal learning from a novel optimization perspective and propose UniRoMo, a consensus-innovation optimization framework that guides low-quality modalities toward reliable shared semantics, enabling direct learning from degraded multimodal data beyond representation-level repair or compensation. Specifically, structure-guided dynamic consensus estimation constructs a reliable shared semantic anchor from cross-modal structural consistency, while innovation-based anisotropic gradient modulation uses accumulated deviations from this anchor to modulate gradient directions and mitigate persistent structural drift under low-quality modalities. Extensive experiments on four widely used benchmarks demonstrate that UniRoMo achieves competitive performance across various modality degradation and clean settings under both joint and alternating optimization paradigms. Its consistent gains across conventional encoder backbones and multimodal large language models further demonstrate strong robustness and architectural generalizability, with only marginal additional computational overhead. Ablation studies and additional analyses further validate the effectiveness of the proposed components and the broad applicability of UniRoMo across downstream tasks.
+        </p>
+      </div>
+    </section>
+
+    <section class="paper-section section-tinted" id="method">
+      <div class="page-shell">
+        <div class="section-heading">
+          <p class="section-index">02</p>
+          <h2>Method</h2>
+          <p>Consensus provides reliable semantic guidance; innovation regulates unreliable optimization directions.</p>
+        </div>
+
+        <figure class="paper-figure figure-wide">
+          <a href="static/pdfs/figures/method.pdf" target="_blank" title="Open the method figure as PDF">
+            <picture>
+              <source srcset="static/images/paper/method.svg" type="image/svg+xml">
+              <img src="static/images/paper/method.png" alt="Pipeline of the UniRoMo consensus-innovation optimization framework">
+            </picture>
+          </a>
+          <figcaption>
+            UniRoMo supports both joint and alternating training under missing, noisy, and hybrid modality degradation.
+          </figcaption>
+        </figure>
+
+        <div class="method-points">
+          <article>
+            <p class="method-label">SDCE</p>
+            <h3>Structure-guided dynamic consensus</h3>
+            <p>Builds a reliability-weighted shared semantic anchor from modality availability and cross-modal structural consistency.</p>
+          </article>
+          <article>
+            <p class="method-label">IAGM</p>
+            <h3>Innovation-based gradient modulation</h3>
+            <p>Uses accumulated modality-consensus deviations to attenuate persistently inconsistent update directions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section" id="results">
+      <div class="page-shell">
+        <div class="section-heading">
+          <p class="section-index">03</p>
+          <h2>Robustness Results</h2>
+          <p>UniRoMo improves cross-modal alignment across clean and low-quality settings.</p>
+        </div>
+
+        <figure class="paper-figure figure-wide">
+          <a href="static/pdfs/figures/alignment.pdf" target="_blank" title="Open the alignment figure as PDF">
+            <picture>
+              <source srcset="static/images/paper/alignment.svg" type="image/svg+xml">
+              <img src="static/images/paper/alignment.png" alt="Modality gap and accuracy over training for joint and alternating optimization">
+            </picture>
+          </a>
+          <figcaption>
+            UniRoMo consistently reduces the modality gap while improving fusion accuracy under both optimization paradigms.
+          </figcaption>
+        </figure>
+
+        <h3 class="result-table-title">Traditional Encoders</h3>
+        <div class="result-table-wrap">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th scope="col">Benchmark</th>
+                <th scope="col">Modalities</th>
+                <th scope="col">Robust setting</th>
+                <th scope="col">UniRoMo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">CREMA-D</th>
+                <td>Audio + Visual</td>
+                <td>Hybrid</td>
+                <td><strong>81.99%</strong> <span>Alternating</span></td>
+              </tr>
+              <tr>
+                <th scope="row">AVE</th>
+                <td>Audio + Visual</td>
+                <td>Hybrid</td>
+                <td><strong>61.19%</strong> <span>Alternating</span></td>
+              </tr>
+              <tr>
+                <th scope="row">MVSA-Single</th>
+                <td>Visual + Text</td>
+                <td>Hybrid</td>
+                <td><strong>80.54%</strong> <span>Joint</span></td>
+              </tr>
+              <tr>
+                <th scope="row">IEMOCAP</th>
+                <td>Audio + Visual + Text</td>
+                <td>60% missing</td>
+                <td><strong>70.28%</strong> <span>Alternating</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="result-table-title">Frozen 7B MLLMs</h3>
+        <div class="result-table-wrap">
+          <table class="result-table mllm-result-table">
+            <thead>
+              <tr>
+                <th scope="col">Benchmark</th>
+                <th scope="col">Frozen Backbone</th>
+                <th scope="col">Clean</th>
+                <th scope="col">Noisy</th>
+                <th scope="col">Missing</th>
+                <th scope="col">Hybrid</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">CREMA-D</th>
+                <td>Ola-7B</td>
+                <td>74.06%</td>
+                <td>73.79%</td>
+                <td>60.48%</td>
+                <td><strong>60.35%</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">MVSA-Single</th>
+                <td>LLaVA-7B</td>
+                <td>79.77%</td>
+                <td>80.70%</td>
+                <td>81.31%</td>
+                <td><strong>81.50%</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="result-note">All MLLM backbone parameters are frozen; only the classifier head is trainable.</p>
+      </div>
+    </section>
+
+    <section class="paper-section section-tinted" id="analysis">
+      <div class="page-shell">
+        <div class="section-heading">
+          <p class="section-index">04</p>
+          <h2>Qualitative Analysis</h2>
+        </div>
+
+        <div class="qualitative-layout">
+          <figure class="paper-figure">
+            <a href="static/pdfs/figures/qualitative-cremad.pdf" target="_blank" title="Open the qualitative result as PDF">
+              <picture>
+                <source srcset="static/images/paper/qualitative-cremad.svg" type="image/svg+xml">
+                <img src="static/images/paper/qualitative-cremad.png" alt="CREMA-D attention maps and predictions under clean, missing, noisy, and hybrid conditions">
+              </picture>
+            </a>
+          </figure>
+          <div class="analysis-copy">
+            <p class="eyebrow">CREMA-D</p>
+            <h3>Stable attention under degraded inputs</h3>
+            <p>Without UniRoMo, degraded modalities lead to diffuse attention and incorrect emotion predictions. UniRoMo preserves discriminative facial regions and maintains the correct prediction across missing, noisy, and hybrid inputs.</p>
+            <p class="analysis-note">Additional scene-level and object-level MVSA visualizations are provided in the supplementary material.</p>
           </div>
         </div>
       </div>
     </section>
-  </main>
 
-  <section class="section hero is-light">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-             Multimodal learning integrates complementary information from heterogeneous modalities, yet real-world multimodal data are often incomplete or corrupted by noise, substantially impairing the effectiveness and reliability of multimodal models. Early approaches typically address a single degradation type at a time, whereas real-world multimodal data may involve multiple coexisting degradations whose patterns are unknown a priori. A few recent efforts have begun to explore unified robust multimodal learning to jointly handle multiple degradation types, but they rely on clean or modality-complete references and auxiliary repair modules, hindering their broader applicability. To address these limitations, we rethink unified robust multimodal learning from a novel optimization perspective and propose UniRoMo, a consensus-innovation optimization framework that guides low-quality modalities toward reliable shared semantics, enabling direct learning from degraded multimodal data beyond representation-level repair or compensation. Specifically, structure-guided dynamic consensus estimation constructs a reliable shared semantic anchor from cross-modal structural consistency, while innovation-based anisotropic gradient modulation uses accumulated deviations from this anchor to modulate gradient directions and mitigate persistent structural drift under low-quality modalities. Extensive experiments on four widely used benchmarks demonstrate that UniRoMo achieves competitive performance across various modality degradation and clean settings under both joint and alternating optimization paradigms. Its consistent gains across conventional encoder backbones and multimodal large language models further demonstrate strong robustness and architectural generalizability, with only marginal additional computational overhead. Ablation studies and additional analyses further validate the effectiveness of the proposed components and the broad applicability of UniRoMo across downstream tasks.
+    <section class="paper-section" id="generalization">
+      <div class="page-shell">
+        <div class="section-heading">
+          <p class="section-index">05</p>
+          <h2>Beyond Classification</h2>
+          <p>The same consensus-innovation principle transfers to downstream tasks with different objectives.</p>
+        </div>
+
+        <div class="application-grid">
+          <article class="application-item">
+            <a href="static/pdfs/figures/generalization-fake.pdf" target="_blank" title="Open the fake video detection figure as PDF">
+              <picture>
+                <source srcset="static/images/paper/generalization-fake.svg" type="image/svg+xml">
+                <img src="static/images/paper/generalization-fake.png" alt="Consensus geometry for real and fake video detection">
+              </picture>
+            </a>
+            <p class="eyebrow">Fake Video Detection</p>
+            <h3>Cross-modal inconsistency as fake evidence</h3>
+            <p>UniRoMo reaches 79.53 AUC in zero-shot cross-dataset evaluation on FakeAVCeleb using only CREMA-D training data.</p>
+          </article>
+
+          <article class="application-item">
+            <a href="static/pdfs/figures/generalization-retrieval.pdf" target="_blank" title="Open the retrieval figure as PDF">
+              <picture>
+                <source srcset="static/images/paper/generalization-retrieval.svg" type="image/svg+xml">
+                <img src="static/images/paper/generalization-retrieval.png" alt="Comparison of PMRL and UniRoMo retrieval geometry under a missing modality">
+              </picture>
+            </a>
+            <p class="eyebrow">Multimodal Retrieval</p>
+            <h3>Stable retrieval with missing modalities</h3>
+            <p>Consensus-guided replacement preserves shared semantic structure and improves retrieval under visual missing rates up to 80%.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section section-tinted" id="code">
+      <div class="page-shell">
+        <div class="section-heading">
+          <p class="section-index">06</p>
+          <h2>Code</h2>
+        </div>
+
+        <div class="code-release-list">
+          <div class="code-release-item">
+            <div>
+              <p class="resource-name">Inference</p>
+              <p class="resource-meta">Inference entry point and usage will be maintained in the GitHub repository.</p>
+            </div>
+            <a class="text-action" href="https://github.com/jiayyyyyyyyy/UniRoMo/blob/main/inference.py" target="_blank" rel="noopener noreferrer">
+              Open inference.py
+              <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <div class="code-release-item">
+            <div>
+              <p class="resource-name">Training</p>
+              <p class="resource-meta">The complete training code will be released upon acceptance of the paper.</p>
+            </div>
+            <span class="release-status"><i class="fas fa-lock" aria-hidden="true"></i> Upon acceptance</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="resource-section" id="demo">
-    <div class="container is-max-desktop">
-      <div class="resource-heading">
-        <h2 class="title is-3">Demo</h2>
-        <p>UniRoMo inference under real-world multimodal degradation.</p>
+    <section class="paper-section" id="checkpoints">
+      <div class="page-shell">
+        <div class="section-heading">
+          <p class="section-index">07</p>
+          <h2>Checkpoints</h2>
+          <p>Pretrained weights for the four main benchmarks.</p>
+        </div>
+
+        <div class="checkpoint-list">
+          <div class="checkpoint-item">
+            <div>
+              <p class="resource-name">CREMA-D</p>
+              <p class="resource-meta">PyTorch checkpoint &middot; 85 MB</p>
+            </div>
+            <a class="download-action" href="https://github.com/jiayyyyyyyyy/UniRoMo/raw/refs/heads/main/weights/CREMA-D/best_CREMAD_acc_0.8723.pth">
+              <i class="fas fa-download" aria-hidden="true"></i>
+              Download
+            </a>
+          </div>
+
+          <div class="checkpoint-item">
+            <div>
+              <p class="resource-name">AVE</p>
+              <p class="resource-meta">Checkpoint will be added</p>
+            </div>
+            <span class="release-status">Coming soon</span>
+          </div>
+
+          <div class="checkpoint-item">
+            <div>
+              <p class="resource-name">MVSA-Single</p>
+              <p class="resource-meta">Checkpoint will be added</p>
+            </div>
+            <span class="release-status">Coming soon</span>
+          </div>
+
+          <div class="checkpoint-item">
+            <div>
+              <p class="resource-name">IEMOCAP</p>
+              <p class="resource-meta">PyTorch checkpoint &middot; 2.47 GiB</p>
+            </div>
+            <a class="download-action" href="https://huggingface.co/Jiayyyyy/UniRoMo-IEMOCAP/resolve/main/best_IEMOCAP_acc_0.7931.pth?download=true">
+              <i class="fas fa-download" aria-hidden="true"></i>
+              Download
+            </a>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <video class="demo-video" controls playsinline preload="metadata">
-        <source src="static/videos/banner_video.mp4" type="video/mp4">
-        Your browser does not support the video element.
-      </video>
-    </div>
-  </section>
-
-  <section class="resource-section is-muted" id="inference">
-    <div class="container is-max-desktop">
-      <div class="resource-heading">
-        <h2 class="title is-3">Inference</h2>
-        <p>Run inference with a downloaded checkpoint and your multimodal input.</p>
-      </div>
-
-      <div class="code-panel">
-        <div class="code-panel-header">
-          <span>Shell</span>
-          <button class="copy-code-btn" onclick="copyInferenceCode()" title="Copy inference command">
-            <i class="fas fa-copy"></i>
-            <span class="inference-copy-text">Copy</span>
+    <section class="paper-section bibtex-section" id="bibtex">
+      <div class="page-shell reading-width">
+        <div class="bibtex-heading">
+          <div class="section-heading">
+            <p class="section-index">08</p>
+            <h2>BibTeX</h2>
+          </div>
+          <button class="copy-button" type="button" onclick="copyBibTeX()" title="Copy BibTeX">
+            <i class="fas fa-copy" aria-hidden="true"></i>
+            <span id="copy-label">Copy</span>
           </button>
         </div>
-        <pre id="inference-code"><code>python inference.py \
-  --checkpoint &lt;PATH_TO_CHECKPOINT&gt; \
-  --input &lt;PATH_TO_INPUT&gt;</code></pre>
-      </div>
-    </div>
-  </section>
-
-  <section class="resource-section" id="checkpoints">
-    <div class="container is-max-desktop">
-      <div class="resource-heading">
-        <h2 class="title is-3">Checkpoints</h2>
-        <p>Pretrained checkpoints used for the reported CREMA-D and IEMOCAP results.</p>
-      </div>
-
-      <div class="checkpoint-list">
-        <div class="checkpoint-item">
-          <div>
-            <p class="checkpoint-name">CREMA-D</p>
-            <p class="checkpoint-meta">PyTorch checkpoint &middot; 85 MB</p>
-          </div>
-          <a
-            class="checkpoint-download"
-            href="https://github.com/jiayyyyyyyyy/UniRoMo/raw/refs/heads/main/weights/CREMA-D/best_CREMAD_acc_0.8723.pth"
-            title="Download CREMA-D checkpoint"
-          >
-            <i class="fas fa-download"></i>
-            <span>Download</span>
-          </a>
-        </div>
-
-        <div class="checkpoint-item">
-          <div>
-            <p class="checkpoint-name">IEMOCAP</p>
-            <p class="checkpoint-meta">PyTorch checkpoint &middot; 2.47 GiB</p>
-          </div>
-          <a
-            class="checkpoint-download"
-            href="https://huggingface.co/Jiayyyyy/UniRoMo-IEMOCAP/resolve/main/best_IEMOCAP_acc_0.7931.pth?download=true"
-            title="Download IEMOCAP checkpoint"
-          >
-            <i class="fas fa-download"></i>
-            <span>Download</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <div class="bibtex-header">
-        <h2 class="title">BibTeX</h2>
-        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
-          <i class="fas fa-copy"></i>
-          <span class="copy-text">Copy</span>
-        </button>
-      </div>
-      <pre id="bibtex-code"><code>@misc{jiang2026uniromo,
-  title={UniRoMo: Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization},
-  author={Jiang, Yue and Xu, Yunqiu and Meng, Wenchao and Yang, Qinmin and Chen, Jiming},
-  year={2026},
-  note={Submitted},
-  url={Coming Soon}
+        <pre id="bibtex-code"><code>@misc{jiang2026uniromo,
+  title  = {UniRoMo: Rethinking Unified Robust Multimodal Learning via Consensus-Innovation Optimization},
+  author = {Jiang, Yue and Xu, Yunqiu and Meng, Wenchao and Yang, Qinmin and Chen, Jiming},
+  year   = {2026},
+  note   = {Submitted}
 }</code></pre>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-8">
-          <div class="content">
-            <p>
-              This page was built using the
-              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener noreferrer">Academic Project Page Template</a>,
-              which was adopted from the
-              <a href="https://nerfies.github.io" target="_blank" rel="noopener noreferrer">Nerfies</a>
-              project page.
-            </p>
-          </div>
-        </div>
       </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-shell reading-width">
+      <p>
+        Website template adapted from the
+        <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener noreferrer">Academic Project Page Template</a>.
+      </p>
     </div>
   </footer>
 
   <script>
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-
     function copyBibTeX() {
-      const bibtex = document.getElementById("bibtex-code").innerText;
-      navigator.clipboard.writeText(bibtex).then(() => {
-        const copyText = document.querySelector(".copy-text");
-        const originalText = copyText.innerText;
-        copyText.innerText = "Copied";
-        setTimeout(() => {
-          copyText.innerText = originalText;
-        }, 1500);
-      });
-    }
+      const text = document.getElementById("bibtex-code").innerText;
+      const label = document.getElementById("copy-label");
 
-    function copyInferenceCode() {
-      const inferenceCode = document.getElementById("inference-code").innerText;
-      navigator.clipboard.writeText(inferenceCode).then(() => {
-        const copyText = document.querySelector(".inference-copy-text");
-        const originalText = copyText.innerText;
-        copyText.innerText = "Copied";
-        setTimeout(() => {
-          copyText.innerText = originalText;
+      function showCopied() {
+        label.innerText = "Copied";
+        window.setTimeout(() => {
+          label.innerText = "Copy";
         }, 1500);
-      });
+      }
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(showCopied);
+        return;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      showCopied();
     }
   </script>
 </body>
