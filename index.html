@@ -42,6 +42,164 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <style>
+    .resource-section {
+      padding: 4.5rem 1.5rem;
+    }
+
+    .resource-section.is-muted {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .resource-heading {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .resource-heading .title {
+      margin-bottom: 0.65rem !important;
+    }
+
+    .resource-heading p {
+      margin: 0 auto;
+      max-width: 42rem;
+      color: #64748b;
+    }
+
+    .demo-video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0f172a;
+      border: 1px solid #dbe3ed;
+      border-radius: 8px;
+      box-shadow: 0 12px 30px rgb(15 23 42 / 0.12);
+      object-fit: contain;
+    }
+
+    .code-panel {
+      overflow: hidden;
+      border: 1px solid #263244;
+      border-radius: 8px;
+      background: #0f172a;
+      box-shadow: 0 10px 24px rgb(15 23 42 / 0.1);
+    }
+
+    .code-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 3.25rem;
+      padding: 0.65rem 0.85rem 0.65rem 1.15rem;
+      border-bottom: 1px solid #263244;
+      color: #cbd5e1;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .copy-code-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-height: 2.25rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      background: transparent;
+      color: #f8fafc;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .copy-code-btn:hover {
+      border-color: #94a3b8;
+      background: #1e293b;
+    }
+
+    #inference-code {
+      margin: 0;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: #0f172a !important;
+      box-shadow: none;
+      padding: 1.5rem !important;
+    }
+
+    #inference-code code {
+      background: transparent !important;
+      color: #e2e8f0 !important;
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    .checkpoint-list {
+      border-top: 1px solid #dbe3ed;
+    }
+
+    .checkpoint-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      min-height: 5.5rem;
+      padding: 1.15rem 0;
+      border-bottom: 1px solid #dbe3ed;
+    }
+
+    .checkpoint-name {
+      margin: 0 0 0.25rem;
+      color: #172033;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .checkpoint-meta {
+      margin: 0;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .checkpoint-download {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 2.75rem;
+      padding: 0.65rem 1rem;
+      border-radius: 6px;
+      background: #172033;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .checkpoint-download:hover {
+      background: #0f766e;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    @media screen and (max-width: 640px) {
+      .resource-section {
+        padding: 3.25rem 1.25rem;
+      }
+
+      .checkpoint-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      .checkpoint-download {
+        width: 100%;
+      }
+    }
+  </style>
+
   <script defer src="static/js/fontawesome.all.min.js"></script>
 
   <script type="application/ld+json">
@@ -187,6 +345,7 @@
                       <span>Code Coming Soon</span>
                     </button>
                   </span>
+
                 </div>
               </div>
             </div>
@@ -205,6 +364,83 @@
             <p>
              Multimodal learning integrates complementary information from heterogeneous modalities, yet real-world multimodal data are often incomplete or corrupted by noise, substantially impairing the effectiveness and reliability of multimodal models. Early approaches typically address a single degradation type at a time, whereas real-world multimodal data may involve multiple coexisting degradations whose patterns are unknown a priori. A few recent efforts have begun to explore unified robust multimodal learning to jointly handle multiple degradation types, but they rely on clean or modality-complete references and auxiliary repair modules, hindering their broader applicability. To address these limitations, we rethink unified robust multimodal learning from a novel optimization perspective and propose UniRoMo, a consensus-innovation optimization framework that guides low-quality modalities toward reliable shared semantics, enabling direct learning from degraded multimodal data beyond representation-level repair or compensation. Specifically, structure-guided dynamic consensus estimation constructs a reliable shared semantic anchor from cross-modal structural consistency, while innovation-based anisotropic gradient modulation uses accumulated deviations from this anchor to modulate gradient directions and mitigate persistent structural drift under low-quality modalities. Extensive experiments on four widely used benchmarks demonstrate that UniRoMo achieves competitive performance across various modality degradation and clean settings under both joint and alternating optimization paradigms. Its consistent gains across conventional encoder backbones and multimodal large language models further demonstrate strong robustness and architectural generalizability, with only marginal additional computational overhead. Ablation studies and additional analyses further validate the effectiveness of the proposed components and the broad applicability of UniRoMo across downstream tasks.
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="resource-section" id="demo">
+    <div class="container is-max-desktop">
+      <div class="resource-heading">
+        <h2 class="title is-3">Demo</h2>
+        <p>UniRoMo inference under real-world multimodal degradation.</p>
+      </div>
+
+      <video class="demo-video" controls playsinline preload="metadata">
+        <source src="static/videos/banner_video.mp4" type="video/mp4">
+        Your browser does not support the video element.
+      </video>
+    </div>
+  </section>
+
+  <section class="resource-section is-muted" id="inference">
+    <div class="container is-max-desktop">
+      <div class="resource-heading">
+        <h2 class="title is-3">Inference</h2>
+        <p>Run inference with a downloaded checkpoint and your multimodal input.</p>
+      </div>
+
+      <div class="code-panel">
+        <div class="code-panel-header">
+          <span>Shell</span>
+          <button class="copy-code-btn" onclick="copyInferenceCode()" title="Copy inference command">
+            <i class="fas fa-copy"></i>
+            <span class="inference-copy-text">Copy</span>
+          </button>
+        </div>
+        <pre id="inference-code"><code>python inference.py \
+  --checkpoint &lt;PATH_TO_CHECKPOINT&gt; \
+  --input &lt;PATH_TO_INPUT&gt;</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="resource-section" id="checkpoints">
+    <div class="container is-max-desktop">
+      <div class="resource-heading">
+        <h2 class="title is-3">Checkpoints</h2>
+        <p>Pretrained checkpoints used for the reported CREMA-D and IEMOCAP results.</p>
+      </div>
+
+      <div class="checkpoint-list">
+        <div class="checkpoint-item">
+          <div>
+            <p class="checkpoint-name">CREMA-D</p>
+            <p class="checkpoint-meta">PyTorch checkpoint &middot; 85 MB</p>
+          </div>
+          <a
+            class="checkpoint-download"
+            href="https://github.com/jiayyyyyyyyy/UniRoMo/raw/refs/heads/main/weights/CREMA-D/best_CREMAD_acc_0.8723.pth"
+            title="Download CREMA-D checkpoint"
+          >
+            <i class="fas fa-download"></i>
+            <span>Download</span>
+          </a>
+        </div>
+
+        <div class="checkpoint-item">
+          <div>
+            <p class="checkpoint-name">IEMOCAP</p>
+            <p class="checkpoint-meta">PyTorch checkpoint &middot; 2.47 GiB</p>
+          </div>
+          <a
+            class="checkpoint-download"
+            href="https://huggingface.co/Jiayyyyy/UniRoMo-IEMOCAP/resolve/main/best_IEMOCAP_acc_0.7931.pth?download=true"
+            title="Download IEMOCAP checkpoint"
+          >
+            <i class="fas fa-download"></i>
+            <span>Download</span>
+          </a>
         </div>
       </div>
     </div>
@@ -259,6 +495,18 @@
       const bibtex = document.getElementById("bibtex-code").innerText;
       navigator.clipboard.writeText(bibtex).then(() => {
         const copyText = document.querySelector(".copy-text");
+        const originalText = copyText.innerText;
+        copyText.innerText = "Copied";
+        setTimeout(() => {
+          copyText.innerText = originalText;
+        }, 1500);
+      });
+    }
+
+    function copyInferenceCode() {
+      const inferenceCode = document.getElementById("inference-code").innerText;
+      navigator.clipboard.writeText(inferenceCode).then(() => {
+        const copyText = document.querySelector(".inference-copy-text");
         const originalText = copyText.innerText;
         copyText.innerText = "Copied";
         setTimeout(() => {
