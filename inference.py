@@ -46,31 +46,35 @@ def calculate_entropy(output):
     probabilities = F.softmax(output, dim=1)
     log_probabilities = torch.log(probabilities + 1e-8)
     entropy = -torch.sum(probabilities * log_probabilities, dim=1)
-    class_count = output.shape[1]
-    entropy = entropy / np.log(class_count)
+    C = output.shape[1]
+    entropy = entropy / np.log(C)
     return entropy
 
 
 def calculate_gating_weights(encoder_output_1, encoder_output_2):
     entropy_1 = calculate_entropy(encoder_output_1)
     entropy_2 = calculate_entropy(encoder_output_2)
-    max_entropy = torch.max(entropy_1, entropy_2)
-
+    max_entropy = torch.max(entropy_1, entropy_2) # element-wise max
+    
     gating_weight_1 = torch.exp(max_entropy - entropy_1)
     gating_weight_2 = torch.exp(max_entropy - entropy_2)
+    
     sum_weights = gating_weight_1 + gating_weight_2
-
+    
     gating_weight_1 = gating_weight_1 / (sum_weights + 1e-8)
     gating_weight_2 = gating_weight_2 / (sum_weights + 1e-8)
+    
     return gating_weight_1.view(-1, 1), gating_weight_2.view(-1, 1)
 
 
 def valid(args, model, device, dataloader, gs_flag=False, av_alpha=0.5):
     softmax = nn.Softmax(dim=1)
-
-    if args.dataset == 'CREMAD' or args.dataset == 'CREMA-D':
+    
+    # Dataset classes setup
+    if args.dataset == 'CREMAD':
         n_classes = 6
     else:
+        # Default fallback
         n_classes = 6
 
     with torch.no_grad():
@@ -93,42 +97,41 @@ def valid(args, model, device, dataloader, gs_flag=False, av_alpha=0.5):
             image = image.float()
 
             if not gs_flag:
-                # Same forward path as the original valid() function.
-                a, v, out = model(spec, image)
-
-                out_v = (
-                    torch.mm(
-                        v,
-                        torch.transpose(
-                            model.module.fusion_module.fc_out.weight[:, 512:],
-                            0,
-                            1,
-                        ),
-                    )
-                    + model.module.fusion_module.fc_out.bias / 2
-                )
-                out_a = (
-                    torch.mm(
-                        a,
-                        torch.transpose(
-                            model.module.fusion_module.fc_out.weight[:, :512],
-                            0,
-                            1,
-                        ),
-                    )
-                    + model.module.fusion_module.fc_out.bias / 2
-                )
+                # Standard Forward
+                if args.clip:
+                    a, v, out = model(spec, image)
+                else:
+                    a, v, out = model(spec, image)
+                    
+                # Calculate unimodal outputs for metrics
+                weight_size = model.module.fusion_module.fc_out.weight.size(1)
+                # Split weights for A and V (assuming concat fusion which is 2*dim)
+                # Note: fc_out input dim is 512, so usually fc_out is [Classes, 512]
+                # If using GS/Concatenation logic in standard forward:
+                # Usually Basic Model returns 'out' as the fused result. 
+                # Calculating individual out_a/out_v depends on fusion method implementation.
+                # Here we approximate using the logic from original code:
+                out_v = (torch.mm(v, torch.transpose(model.module.fusion_module.fc_out.weight[:, 512:], 0, 1)) +
+                            model.module.fusion_module.fc_out.bias / 2)
+                out_a = (torch.mm(a, torch.transpose(model.module.fusion_module.fc_out.weight[:, :512], 0, 1)) +
+                            model.module.fusion_module.fc_out.bias / 2)
 
             elif gs_flag:
-                result = model(spec, image)
-                a, v = result[0], result[1]
+                # GS Evaluation
+                if args.clip:
+                    a, v = model(spec, image) # Assuming model modified to return feats in eval
+                else:
+                    # Usually forward returns a, v, out. We need a, v
+                    res = model(spec, image)
+                    a, v = res[0], res[1]
 
                 out_a = model.module.fusion_module.fc_out(a)
                 out_v = model.module.fusion_module.fc_out(v)
 
                 if args.dynamic:
-                    audio_conf, visual_conf = calculate_gating_weights(out_a, out_v)
-                    out = out_a * audio_conf + out_v * visual_conf
+                    # Dynamic weighting based on entropy
+                    txt_conf, img_conf = calculate_gating_weights(out_a, out_v)
+                    out = (out_a * txt_conf + out_v * img_conf)
                 else:
                     out = av_alpha * out_a + (1 - av_alpha) * out_v
 
@@ -137,18 +140,17 @@ def valid(args, model, device, dataloader, gs_flag=False, av_alpha=0.5):
             pred_a = softmax(out_a)
 
             for i in range(image.shape[0]):
-                fused_pred = np.argmax(prediction[i].cpu().data.numpy())
-                visual_pred = np.argmax(pred_v[i].cpu().data.numpy())
-                audio_pred = np.argmax(pred_a[i].cpu().data.numpy())
-                label_id = int(label[i].cpu().item())
-                num[label_id] += 1.0
+                ma = np.argmax(prediction[i].cpu().data.numpy())
+                v = np.argmax(pred_v[i].cpu().data.numpy())
+                a = np.argmax(pred_a[i].cpu().data.numpy())
+                num[label[i]] += 1.0
 
-                if label_id == fused_pred:
-                    acc[label_id] += 1.0
-                if label_id == visual_pred:
-                    acc_v[label_id] += 1.0
-                if label_id == audio_pred:
-                    acc_a[label_id] += 1.0
+                if np.asarray(label[i].cpu()) == ma:
+                    acc[label[i]] += 1.0
+                if np.asarray(label[i].cpu()) == v:
+                    acc_v[label[i]] += 1.0
+                if np.asarray(label[i].cpu()) == a:
+                    acc_a[label[i]] += 1.0
 
     return sum(acc) / sum(num), sum(acc_a) / sum(num), sum(acc_v) / sum(num)
 
